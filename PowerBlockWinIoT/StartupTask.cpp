@@ -18,3 +18,20 @@ void StartupTask::Run(IBackgroundTaskInstance^ taskInstance)
     // described in http://aka.ms/backgroundtaskdeferral
     //
 }
+
+GpioPin ^ PowerBlockWinIoT::StartupTask::ConfigureGpioPin(int pinNumber)
+{
+	auto gpioController = GpioController::GetDefault();
+
+	GpioPin ^pin = nullptr;
+	if (gpioController != nullptr)
+	{
+		pin = gpioController->OpenPin(pinNumber);
+		if (pin != nullptr) 
+		{
+			pin->SetDriveMode(GpioPinDriveMode::Output);
+		}
+	}
+
+	return pin;
+}
