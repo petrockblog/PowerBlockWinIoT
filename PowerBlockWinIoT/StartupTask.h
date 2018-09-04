@@ -13,7 +13,9 @@ namespace PowerBlockWinIoT
         virtual void Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance^ taskInstance);
 
 	private:
-		const int pinNumber = 17;
+		const int statusPinNumber = 17;
+		const int shutdownSignalPin = 18;
+		const int msSleepDuration = 500;
 
 		GpioPin ^ConfigureGpioPin(int pinNumber);
 

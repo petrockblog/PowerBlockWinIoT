@@ -17,6 +17,16 @@ void StartupTask::Run(IBackgroundTaskInstance^ taskInstance)
     // from closing prematurely by using BackgroundTaskDeferral as
     // described in http://aka.ms/backgroundtaskdeferral
     //
+	while (true)
+	{
+		GpioPin ^statusPin = ConfigureGpioPin(statusPinNumber);
+		if (statusPin != nullptr)
+		{
+			statusPin->Write(GpioPinValue::High);
+		}
+
+		Sleep(msSleepDuration);
+	}
 }
 
 GpioPin ^ PowerBlockWinIoT::StartupTask::ConfigureGpioPin(int pinNumber)
