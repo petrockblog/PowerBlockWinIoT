@@ -10,26 +10,27 @@ using namespace Windows::ApplicationModel::Background;
 
 void StartupTask::Run(IBackgroundTaskInstance^ taskInstance)
 {
-    // 
-    // TODO: Insert code to perform background work
-    //
-    // If you start any asynchronous methods here, prevent the task
-    // from closing prematurely by using BackgroundTaskDeferral as
-    // described in http://aka.ms/backgroundtaskdeferral
-    //
-	while (true)
-	{
-		GpioPin ^statusPin = ConfigureGpioPin(statusPinNumber);
-		if (statusPin != nullptr)
-		{
-			statusPin->Write(GpioPinValue::High);
-		}
+	GpioPin ^statusPin = ConfigureGpioPin(statusPinNumber, GpioPinDriveMode::Output);
+	GpioPin ^shutdownSignalPin = ConfigureGpioPin(shutdownSignalPinNumber, GpioPinDriveMode::Input);
 
-		Sleep(msSleepDuration);
+	if ((statusPin != nullptr) && (shutdownSignalPin != nullptr))
+	{		
+		statusPin->Write(GpioPinValue::High);
+		while (true)
+		{
+			GpioPinValue shutdownValue = shutdownSignalPin->Read();
+			if (shutdownValue == GpioPinValue::High) {
+				// Shutdowns the device immediately:
+				const Windows::Foundation::TimeSpan timeSpan = { 0 };
+				Windows::System::ShutdownManager::BeginShutdown(Windows::System::ShutdownKind::Shutdown, timeSpan);
+			}
+
+			Sleep(msSleepDuration);
+		}
 	}
 }
 
-GpioPin ^ PowerBlockWinIoT::StartupTask::ConfigureGpioPin(int pinNumber)
+GpioPin ^ PowerBlockWinIoT::StartupTask::ConfigureGpioPin(int pinNumber, GpioPinDriveMode mode)
 {
 	auto gpioController = GpioController::GetDefault();
 
@@ -39,7 +40,7 @@ GpioPin ^ PowerBlockWinIoT::StartupTask::ConfigureGpioPin(int pinNumber)
 		pin = gpioController->OpenPin(pinNumber);
 		if (pin != nullptr) 
 		{
-			pin->SetDriveMode(GpioPinDriveMode::Output);
+			pin->SetDriveMode(mode);
 		}
 	}
 

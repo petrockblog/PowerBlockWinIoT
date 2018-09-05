@@ -14,10 +14,10 @@ namespace PowerBlockWinIoT
 
 	private:
 		const int statusPinNumber = 17;
-		const int shutdownSignalPin = 18;
+		const int shutdownSignalPinNumber = 18;
 		const int msSleepDuration = 500;
 
-		GpioPin ^ConfigureGpioPin(int pinNumber);
+		GpioPin ^ConfigureGpioPin(int pinNumber, GpioPinDriveMode mode);
 
     };
 }
