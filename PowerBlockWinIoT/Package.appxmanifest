@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
-  <Identity Name="petrockblock.PowerBlockDriver" Publisher="CN=18B66A63-A35D-40C4-B708-79A1FC9F5408" Version="1.1.2.0" />
-  <mp:PhoneIdentity PhoneProductId="28acc4c8-410c-4201-b133-653aeae38533" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="petrockblock.PowerBlockDriver" Publisher="CN=18B66A63-A35D-40C4-B708-79A1FC9F5408" Version="1.1.5.0" />
+  <mp:PhoneIdentity PhoneProductId="04fc1038-9523-4b40-8bef-e0a84ddee6f9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>PowerBlock Driver</DisplayName>
     <PublisherDisplayName>petrockblock</PublisherDisplayName>
